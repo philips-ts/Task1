@@ -12,10 +12,11 @@ public interface GUIFactory {
 
         if (osName.contains("mac")) {
             return new MacOsFactory();
-        } else if (osName.contains("windows")){
-            return new WindowsFactory();
-        } else {
-            throw new UnsupportedOperationException("Unsupported OS version");
         }
+        if (osName.contains("windows")){
+            return new WindowsFactory();
+        }
+
+        throw new UnsupportedOperationException("Unsupported OS version");
     }
 }
