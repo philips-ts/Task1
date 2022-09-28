@@ -18,18 +18,20 @@ public class CountingSort{
         }
     }
 
+    public static final int ARRAY_MAX_NUMBER = 100;
+    public static final int TEST_ARRAY_SIZE = 10;
+
     public static void main(String[] args) {
         CountingSort countingSort = new CountingSort();
-        int[] array = new int[10];
+        int[] array = new int[TEST_ARRAY_SIZE];
         Random random = new Random();
 
-        int maxNumber = 100;
         for (int i = 0; i < array.length; i++) {
-            array[i] = random.nextInt(maxNumber);
+            array[i] = random.nextInt(ARRAY_MAX_NUMBER);
         }
         System.out.println("Before sorting: " + Arrays.toString(array));
 
-        countingSort.sort(array, maxNumber);
+        countingSort.sort(array, ARRAY_MAX_NUMBER);
         System.out.println("After sorting: " + Arrays.toString(array));
     }
 }

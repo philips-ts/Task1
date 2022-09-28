@@ -11,7 +11,7 @@ public class MergeSort{
         int[] tempL = new int[sizeOfFirstSubarray];
         int[] tempR = new int[sizeOfSecondSubarray];
 
-        System.arraycopy(arr, left + 0, tempL, 0, sizeOfFirstSubarray);
+        System.arraycopy(arr, left, tempL, 0, sizeOfFirstSubarray);
         System.arraycopy(arr, middle + 1, tempR, 0, sizeOfSecondSubarray);
 
         int i = 0, j = 0;
@@ -56,11 +56,14 @@ public class MergeSort{
         recursiveMergeSort(array, 0, array.length - 1);
     }
 
+    public static final int ARRAY_MAX_NUMBER = 100;
+    public static final int TEST_ARRAY_SIZE = 10;
+
     public static void main(String[] args) {
-        int[] array = new int[10];
+        int[] array = new int[TEST_ARRAY_SIZE];
         Random random = new Random();
         for (int i = 0; i < array.length; i++) {
-            array[i] = random.nextInt(100);
+            array[i] = random.nextInt(ARRAY_MAX_NUMBER);
         }
         System.out.println("Before sorting: " + Arrays.toString(array));
 

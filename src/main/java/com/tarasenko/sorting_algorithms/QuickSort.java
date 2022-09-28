@@ -47,13 +47,16 @@ public class QuickSort{
         recursiveQuickSort(array, 0, array.length - 1);
     }
 
+    public static final int ARRAY_MAX_NUMBER = 100;
+    public static final int TEST_ARRAY_SIZE = 10;
+
     public static void main(String[] args) {
         QuickSort quickSort = new QuickSort();
-        int[] array = new int[10];
+        int[] array = new int[TEST_ARRAY_SIZE];
         Random random = new Random();
 
         for (int i = 0; i < array.length; i++) {
-            array[i] = random.nextInt(100);
+            array[i] = random.nextInt(ARRAY_MAX_NUMBER);
         }
         System.out.println("Before sorting: " + Arrays.toString(array));
 
