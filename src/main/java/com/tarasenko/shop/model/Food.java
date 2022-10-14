@@ -4,22 +4,22 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class Food extends Product{
-    private LocalDate expirationDate;
+public class Food extends Product implements Serializable {
     private short maxStorageTemperature;
 
     @Override
     public String toString() {
         return "Food: " +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "maxStorageTemperature=" + maxStorageTemperature +
                 ", expirationDate=" + expirationDate +
-                ", maxStorageTemperature=" + maxStorageTemperature +
+                ", dateOfManufacture=" + dateOfManufacture +
+                ", name='" + name + '\'' +
                 ", price=" + price;
     }
 }
