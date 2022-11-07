@@ -1,6 +1,5 @@
-package com.tarasenko.shop.model;
+package com.tarasenko.shop.entity;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,13 +11,12 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class OrderItem implements Serializable {
     private Product product;
-    private int amount;
+    private int quantity;
 
     @Override
     public String toString() {
         return "OrderItem :" +
                 "product = " + product +
-                ", amount=" + amount ;
+                ", quantity=" + quantity ;
     }
 }
-
