@@ -1,21 +1,5 @@
 package com.tarasenko.shop.warehouse;
 
-import com.tarasenko.shop.entity.Food;
-import com.tarasenko.shop.entity.NotFood;
-import com.tarasenko.shop.entity.Product;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
 
 class WarehouseImplTest {
 //    WarehouseDao warehouse;

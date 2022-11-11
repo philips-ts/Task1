@@ -1,14 +1,11 @@
 package com.tarasenko.shop.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.time.LocalDate;
 
 @Data
-public class NotFoodDto {
-    private int id;
-    private String name;
-    private LocalDate dateOfManufacture;
-    private int price;
+@EqualsAndHashCode(callSuper=false)
+public class NotFoodDto extends ProductDto {
     private boolean isBreakable;
 }

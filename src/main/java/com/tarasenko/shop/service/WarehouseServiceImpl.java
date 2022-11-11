@@ -1,10 +1,9 @@
 package com.tarasenko.shop.service;
 
-import com.tarasenko.shop.dao.FoodDao;
-import com.tarasenko.shop.dao.NotFoodDao;
-import com.tarasenko.shop.entity.Food;
+import com.tarasenko.shop.repository.FoodRepository;
+import com.tarasenko.shop.repository.NotFoodRepository;
 import com.tarasenko.shop.entity.Product;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,21 +11,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class WarehouseServiceImpl implements WarehouseService {
-    private final FoodDao foodDao;
-    private final NotFoodDao notFoodDao;
-
-
-    @Autowired
-    public WarehouseServiceImpl(FoodDao foodDao, NotFoodDao notFoodDao) {
-        this.foodDao = foodDao;
-        this.notFoodDao = notFoodDao;
-    }
+    private final FoodRepository foodRepository;
+    private final NotFoodRepository notFoodDao;
 
     @Override
     public Optional<Product> findProductByName(String productName) {
+        if (productName == null) {
+            return Optional.empty();
+        }
+
         return getAllProducts().stream()
-                .filter(product -> product.getName().equalsIgnoreCase(productName))
+                .filter(product -> productName.equalsIgnoreCase(product.getName()))
                 .map(Optional::of)
                 .findFirst()
                 .orElseGet(Optional::empty);
@@ -35,7 +32,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public Optional<Product> findProductById(int id) {
         return getAllProducts().stream()
-                .filter(product -> product.getId() == id)
+                .filter(product -> product.getProductId() == id)
                 .map(Optional::of)
                 .findFirst()
                 .orElseGet(Optional::empty);
@@ -44,8 +41,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public List<Product> getAllProducts() {
         final List<Product> products = new ArrayList<>();
-        products.addAll(foodDao.getAll());
-        products.addAll(notFoodDao.getAll());
+        products.addAll(foodRepository.findAll());
+        products.addAll(notFoodDao.findAll());
 
         return products;
     }

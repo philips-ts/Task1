@@ -1,8 +1,7 @@
 package com.tarasenko.shop.entity;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "food")
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(callSuper = true)
 public class Food extends Product implements Serializable {
     @Column(name = "max_storage_temperature")
@@ -20,14 +18,4 @@ public class Food extends Product implements Serializable {
 
     @Column(name = "shelf_life_months")
     private int shelfLifeMonths;
-
-    @Override
-    public String toString() {
-        return "Food: " +
-                "maxStorageTemperature=" + maxStorageTemperature +
-                ", shelf life=" + shelfLifeMonths +
-                ", dateOfManufacture=" + dateOfManufacture +
-                ", name='" + name + '\'' +
-                ", price=" + price;
-    }
 }

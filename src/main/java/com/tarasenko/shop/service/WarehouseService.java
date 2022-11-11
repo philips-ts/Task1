@@ -1,7 +1,5 @@
 package com.tarasenko.shop.service;
 
-import com.tarasenko.shop.entity.Food;
-import com.tarasenko.shop.entity.NotFood;
 import com.tarasenko.shop.entity.Product;
 
 import java.util.List;

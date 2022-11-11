@@ -34,30 +34,6 @@
             font-weight:bold;
         }
 
-        /*#header{*/
-        /*    background:oldlace;*/
-        /*    width:990px;*/
-        /*    height:200px;*/
-        /*    background: blue;*/
-        /*    position:absolute;*/
-        /*}*/
-
-        /*#menu{*/
-        /*    background:oldlace;*/
-        /*    width:190px;*/
-        /*    height:600px;*/
-        /*    background: tomato;*/
-        /*}*/
-        /*#content{*/
-        /*    background:oldlace;*/
-        /*    width:800px;*/
-        /*    height:600px;*/
-        /*    position:absolute;*/
-        /*    left:190px;*/
-        /*    top:0px;*/
-        /*}*/
-
-
         body {
            margin: 0;
            font-family: Arial, Helvetica, sans-serif;
@@ -136,8 +112,8 @@
 
                         <c:forEach var="foodItem" items="${allFood}">
 
-                            <c:url var="addToBucketButton" value="/addToBucket">
-                                <c:param name="productId" value="${foodItem.id}"/>
+                            <c:url var="addFoodToBucketButton" value="/addToBucket">
+                                <c:param name="productId" value="${foodItem.productId}"/>
                             </c:url>
 
 
@@ -149,7 +125,7 @@
                                 <td>${foodItem.price}</td>
                                 <td>
                                     <input type="button" value="Add"
-                                    onclick="window.location.href='${addToBucketButton}'">
+                                    onclick="window.location.href='${addFoodToBucketButton}'">
                                 </td>
                             </tr>
                         </c:forEach>
@@ -168,11 +144,20 @@
                         </tr>
 
                         <c:forEach var="notFoodItem" items="${allNotFood}">
+
+                            <c:url var="addNotFoodToBucketButton" value="/addToBucket">
+                                <c:param name="productId" value="${notFoodItem.productId}"/>
+                            </c:url>
+
                             <tr>
                                 <td>${notFoodItem.name}</td>
                                 <td>${notFoodItem.dateOfManufacture}</td>
                                 <td>${notFoodItem.breakable}</td>
                                 <td>${notFoodItem.price}</td>
+                                <td>
+                                    <input type="button" value="Add"
+                                           onclick="window.location.href='${addNotFoodToBucketButton}'">
+                                </td>
                             </tr>
                         </c:forEach>
 
@@ -194,15 +179,28 @@
                     <th>Quantity</th>
                 </tr>
 
-                <c:forEach var="orderItem" items="${orderItems}">
+                <c:forEach var="bucketItem" items="${bucketItems}">
                     <tr>
-                        <td>${orderItem.product.name}</td>
-                        <td>${orderItem.product.price}</td>
-                        <td>${orderItem.quantity}</td>
+                        <td>${bucketItem.product.name}</td>
+                        <td>${bucketItem.product.price}</td>
+                        <td>${bucketItem.quantity}</td>
                     </tr>
                 </c:forEach>
 
             </table>
+
+            <br>
+            <br>
+            <b>
+                Total cost:     <c:out value="${totalCost}"/>
+            </b>
+
+            <br>
+            <br>
+            <form action="/createOrder">
+                <input type="text" name="deliveryAddress" placeholder="Delivery address: ">
+                <button>Order</button>
+            </form>
 
         </c:when>
 

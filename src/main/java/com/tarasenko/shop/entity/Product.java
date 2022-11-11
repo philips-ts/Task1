@@ -9,27 +9,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.TableGenerator;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 
-@Data
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "products")
+@Inheritance(strategy = InheritanceType.JOINED)
+@Data
 public abstract class Product implements Serializable {
     @Id
-    @TableGenerator(
-            name="product_id_generator",
-            table="PRODUCT_ID_GENERATOR_TABLE",
-            pkColumnName = "id",
-            valueColumnName = "next_val",
-            pkColumnValue="product",
-            allocationSize = 10
-    )
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "product_id_generator")
-    @Column(name = "id")
-    protected int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
+    protected int productId;
 
     @Column(name = "name", length = 20)
     protected String name;

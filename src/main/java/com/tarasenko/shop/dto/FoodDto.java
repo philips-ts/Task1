@@ -2,16 +2,12 @@ package com.tarasenko.shop.dto;
 
 
 import lombok.Data;
-
-import java.time.LocalDate;
+import lombok.EqualsAndHashCode;
 
 
 @Data
-public class FoodDto {
-    private int id;
-    private String name;
-    private LocalDate dateOfManufacture;
-    private int price;
+@EqualsAndHashCode(callSuper=false)
+public class FoodDto extends ProductDto {
     private short maxStorageTemperature;
     private int shelfLifeMonths;
 }

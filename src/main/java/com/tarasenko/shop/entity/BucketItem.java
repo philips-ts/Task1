@@ -1,5 +1,6 @@
 package com.tarasenko.shop.entity;
 
+
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -10,26 +11,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
-
 
 @Entity
-@Table(name = "order_items")
+@Table(name = "bucket_item")
 @Data
-public class OrderItem implements Serializable {
+public class BucketItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_item_id")
-    private int orderItemId;
+    @Column(name = "bucket_item_id")
+    private int bucketItemId;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", insertable = false, updatable = false)
-    private Order order;
-
-    @Column(name = "quantity")
-    private int quantity;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @Column(name = "quantity")
+    private int quantity;
 }

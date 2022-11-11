@@ -1,42 +1,35 @@
 package com.tarasenko.shop.service;
 
-import com.tarasenko.shop.dao.FoodDao;
+import com.tarasenko.shop.repository.FoodRepository;
 import com.tarasenko.shop.dto.FoodDto;
 import com.tarasenko.shop.entity.Food;
 import com.tarasenko.shop.mapper.FoodMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class FoodServiceImpl implements FoodService {
-
-    private final FoodDao foodDao;
+    private final FoodRepository foodRepository;
     private final FoodMapper foodMapper;
-
-    @Autowired
-    public FoodServiceImpl(FoodDao foodDao, FoodMapper foodMapper) {
-        this.foodDao = foodDao;
-        this.foodMapper = foodMapper;
-    }
 
     @Override
     public void addFood(FoodDto foodDto) {
         Food food = foodMapper.toEntity(foodDto);
-        foodDao.add(food);
+        foodRepository.save(food);
     }
 
     @Override
     public List<FoodDto> getAllFood() {
-        List<Food> allFood = foodDao.getAll();
-        List<FoodDto> foodDtos = foodMapper.toDto(allFood);
+        List<Food> allFood = foodRepository.findAll();
 
-        return foodDtos;
+        return foodMapper.toDto(allFood);
     }
 
     @Override
     public void removeFood(int id) {
-        foodDao.deleteById(id);
+        foodRepository.deleteById(id);
     }
 }

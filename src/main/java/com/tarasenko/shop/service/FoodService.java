@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface FoodService {
     void addFood(FoodDto foodDto);
+
     List<FoodDto> getAllFood();
 
     void removeFood(int id);

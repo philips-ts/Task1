@@ -1,7 +1,7 @@
-package com.tarasenko.shop.dao;
+package com.tarasenko.shop.repository;
 
 import com.tarasenko.shop.entity.Order;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -12,10 +12,9 @@ import java.util.List;
 
 
 @Repository
-public class BuyHistoryDaoImpl implements BuyHistoryDao {
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
+@RequiredArgsConstructor
+public class BuyHistoryRepositoryImpl implements BuyHistoryRepository {
+    private final EntityManagerFactory entityManagerFactory;
 
     @Override
     @SuppressWarnings("unchecked")

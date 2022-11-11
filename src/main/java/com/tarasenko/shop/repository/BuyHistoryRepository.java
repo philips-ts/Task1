@@ -1,9 +1,9 @@
-package com.tarasenko.shop.dao;
+package com.tarasenko.shop.repository;
 
 import com.tarasenko.shop.entity.Order;
 
 import java.util.List;
 
-public interface BuyHistoryDao {
+public interface BuyHistoryRepository {
     List<Order> getOrdersByUserId(int userId);
 }

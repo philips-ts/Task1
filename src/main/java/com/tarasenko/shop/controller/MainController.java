@@ -2,13 +2,14 @@ package com.tarasenko.shop.controller;
 
 import com.tarasenko.shop.dto.FoodDto;
 import com.tarasenko.shop.dto.NotFoodDto;
-import com.tarasenko.shop.entity.OrderItem;
+import com.tarasenko.shop.entity.BucketItem;
 import com.tarasenko.shop.entity.Product;
 import com.tarasenko.shop.service.BucketService;
 import com.tarasenko.shop.service.FoodService;
 import com.tarasenko.shop.service.NotFoodService;
+import com.tarasenko.shop.service.OrderService;
 import com.tarasenko.shop.service.WarehouseService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
 
     private final FoodService foodService;
@@ -26,15 +28,7 @@ public class MainController {
     private final BucketService bucketService;
     private final WarehouseService warehouseService;
 
-
-    @Autowired
-    public MainController(FoodService foodService, NotFoodService notFoodService,
-                          BucketService bucketService, WarehouseService warehouseService) {
-        this.foodService = foodService;
-        this.notFoodService = notFoodService;
-        this.bucketService = bucketService;
-        this.warehouseService = warehouseService;
-    }
+    private final OrderService orderService;
 
 
     private void processCatalogAction(HttpServletRequest request, Model model) {
@@ -53,13 +47,19 @@ public class MainController {
         }
     }
 
-    private void processBucketAction(HttpServletRequest request, Model model) {
-        List<OrderItem> orderItems = bucketService.getOrderItems();
+    private void processBucketAction(Model model) {
+        List<BucketItem> bucketItems = bucketService.getBucketItems();
+        model.addAttribute("bucketItems", bucketItems);
 
-        model.addAttribute("orderItems", orderItems);
+        int totalCost = bucketService.getTotalCost();
+        model.addAttribute("totalCost", totalCost);
     }
 
-    private void processLogoutAction(HttpServletRequest request, Model model) {
+    private void processLogoutAction(Model model) {
+
+    }
+
+    private void processOrderAction(Model model) {
 
     }
 
@@ -70,8 +70,9 @@ public class MainController {
         if (action != null) {
             switch (action) {
                 case "catalog" -> processCatalogAction(request, model);
-                case "bucket" -> processBucketAction(request, model);
-                case "logout" -> processLogoutAction(request, model);
+                case "bucket" -> processBucketAction(model);
+                case "logout" -> processLogoutAction(model);
+                case "order" -> processOrderAction(model);
             }
         }
 
@@ -83,6 +84,13 @@ public class MainController {
         Optional<Product> productOptional = warehouseService.findProductById(productId);
 
         productOptional.ifPresent(product -> bucketService.addProduct(product, 1));
+
+        return "redirect:/";
+    }
+
+    @RequestMapping("/createOrder")
+    public String Order(@RequestParam("deliveryAddress") String deliveryAddress) {
+        orderService.createOrder(deliveryAddress);
 
         return "redirect:/";
     }
