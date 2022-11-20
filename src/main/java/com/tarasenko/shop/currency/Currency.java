@@ -16,11 +16,11 @@ public abstract class Currency implements Serializable {
         this.dollarExchangeRate = dollarExchangeRate;
     }
 
-    public int convertToUSD(int amount) {
-        return amount * dollarExchangeRate;
+    public int convertToUSD(int quantity) {
+        return quantity * dollarExchangeRate;
     }
 
-    public int convertFromUSD(int amount) {
-        return amount / dollarExchangeRate;
+    public int convertFromUSD(int quantity) {
+        return quantity / dollarExchangeRate;
     }
 }
