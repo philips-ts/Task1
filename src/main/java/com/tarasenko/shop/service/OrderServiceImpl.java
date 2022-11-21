@@ -6,11 +6,11 @@ import com.tarasenko.shop.entity.Order;
 import com.tarasenko.shop.entity.OrderItem;
 import com.tarasenko.shop.entity.User;
 import com.tarasenko.shop.repository.BucketItemRepository;
-import com.tarasenko.shop.repository.OrderItemRepository;
 import com.tarasenko.shop.repository.OrderRepository;
 import com.tarasenko.shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,8 +23,6 @@ public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
     private final BucketItemRepository bucketItemRepository;
     private final UserRepository userRepository;
-    private final OrderItemRepository orderItemRepository;
-
 
 
     private List<OrderItem> getOrderItemsFromBucketItems(User activeUser) {
@@ -44,6 +42,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    @Transactional
     public void createOrder(String deliveryAddress) {
         User activeUser = userRepository.getActiveUser();
         if (activeUser == null) {
@@ -59,5 +58,7 @@ public class OrderServiceImpl implements OrderService{
         newOrder.setOrderItems(orderItems);
 
         orderRepository.save(newOrder);
+
+        bucketItemRepository.deleteBucketItemByUserUserId(activeUser.getUserId());
     }
 }
