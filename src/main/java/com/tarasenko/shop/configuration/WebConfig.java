@@ -1,4 +1,4 @@
-package com.tarasenko.shop;
+package com.tarasenko.shop.configuration;
 
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -33,7 +33,7 @@ import java.util.Map;
 @ComponentScan("com.tarasenko.shop")
 @PropertySource(value = "classpath:application.properties")
 @RequiredArgsConstructor
-public class AppConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
 
     private final Environment env;
 
